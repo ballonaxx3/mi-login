@@ -29,7 +29,7 @@ app.post('/login', (req, res) => {
     }
 
     if (results.length > 0) {
-      res.send(`<h1>Bienvenido, ${usuario}!</h1>`);
+      res.sendFile(path.join(__dirname, 'dashboard.html'));
     } else {
       res.sendFile(path.join(__dirname, 'erro.html'));
     }
