@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 const connection = mysql.createConnection(process.env.MYSQL_URL);
 
 // Mostrar el login al entrar a la página
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
@@ -34,4 +34,19 @@ app.post('/login', (req, res) => {
       res.send('<h1>Usuario o contraseña incorrectos</h1>');
     }
   });
+});
+// 1. Servir archivos estáticos (por si tu HTML usa CSS o imágenes)
+app.use(express.static(path.join(__dirname)));
+
+// 2. Ruta raíz (opcional: para que no de error al entrar a la URL principal)
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
+// 3. ¡EL PASO MÁS IMPORTANTE PARA RAILWAY!
+// Usamos process.env.PORT para que Railway le asigne el puerto correcto
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Servidor funcionando en el puerto ${PORT}`);
 });
