@@ -31,7 +31,7 @@ app.post('/login', (req, res) => {
     if (results.length > 0) {
       res.send(`<h1>Bienvenido, ${usuario}!</h1>`);
     } else {
-      res.send('<h1>Usuario o contraseña incorrectos</h1>');
+      res.sendFile(path.join(__dirname, 'erro.html'));
     }
   });
 });
