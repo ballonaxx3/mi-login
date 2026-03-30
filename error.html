@@ -4,11 +4,69 @@
     <meta charset="UTF-8">
     <title>Error de Acceso</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #121212; color: white; margin: 0; }
-        .card { background: #1e1e1e; padding: 40px; border-radius: 12px; text-align: center; border: 1px solid #ff4d4d; }
-        h1 { color: #ff4d4d; }
-        a { color: #6366f1; text-decoration: none; font-weight: bold; }
-        .btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #6366f1; color: white; border-radius: 5px; }
+                :root {
+            --color-primario: #C17BC1;
+            --color-secundario: #E4C5E4;
+            --color-acento: #9C3C9F;
+
+            --color-fondo: #121212;
+            --color-card: #1e1e1e;
+            --color-texto: #ffffff;
+
+            --color-error: #ff4d4d;
+            --color-boton: #9C3C9F;
+            --color-boton-hover: #7e1c87;
+        }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+            margin: 0;
+            color: var(--color-texto);
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--color-error);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: var(--color-error);
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: var(--color-boton);
+            color: white;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--color-boton-hover);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
