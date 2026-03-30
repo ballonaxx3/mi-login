@@ -31,7 +31,7 @@ app.post('/login', (req, res) => {
     if (results.length > 0) {
       res.sendFile(path.join(__dirname, 'dashboard.html'));
     } else {
-      res.sendFile(path.join(__dirname, 'erro.html'));
+      res.sendFile(path.join(__dirname, 'error.html'));
     }
   });
 });
