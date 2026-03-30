@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* PALETA */
+:root {
+    --primario: #C17BC1;
+    --secundario: #E4C5E4;
+    --acento: #9C3C9F;
+    --fondo: #F9F7FB;
+    --texto: #1A1A1A;
+}
+
+/* FONDO CON GRADIENTE */
+body {
+    font-family: sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #C17BC1, #E4C5E4);
+}
+
+/* CONTENEDOR */
+.container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* LOGIN GLASS */
+.login {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 350px;
+    color: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: fadeIn 0.8s ease;
+}
+
+/* ANIMACION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TITULO */
+.login h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login p {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* INPUTS CON LABEL ANIMADO */
+.input-box {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.3);
+    color: white;
+    font-size: 14px;
+}
+
+/* LABEL */
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: white;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* EFECTO FOCUS */
+.input-box input:focus + label,
+.input-box input:valid + label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    background: #9C3C9F;
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+
+/* BOTON */
+.login button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #9C3C9F;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* HOVER */
+.login button:hover {
+    background: #7e1c87;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .login {
+        padding: 25px;
+    }
+}
