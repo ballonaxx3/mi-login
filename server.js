@@ -3,53 +3,35 @@ const mysql = require('mysql2');
 const path = require('path');
 const app = express();
 
-// Para poder leer los datos que envías desde el HTML (formulario)
+// Para poder leer los datos que envías desde el HTML
 app.use(express.urlencoded({ extended: true }));
 
 // Conexión a tu base de datos de Railway
-// Nota: Asegúrate de tener configuradas tus variables de entorno en Railway
-const connection = mysql.createConnection(process.env.DATABASE_URL || {
-    host: 'tu_host',
-    user: 'tu_usuario',
-    password: 'tu_password',
-    database: 'tu_base_de_datos'
-});
+// Usamos la variable de entorno que Railway te da automáticamente
+const connection = mysql.createConnection(process.env.MYSQL_URL);
 
-// 1. Mostrar el login al entrar a la página principal
+// Mostrar el login al entrar a la página
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+  res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// 2. Ruta para mostrar el Dashboard (el archivo que quieres que vean al entrar)
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
-
-// 3. Lógica para procesar el inicio de sesión
+// Lógica para procesar el inicio de sesión
 app.post('/login', (req, res) => {
-    const { usuario, password } = req.body;
+  const { usuario, password } = req.body;
 
-    // Buscamos en la tabla 'usuarios'
-    const sql = 'SELECT * FROM usuarios WHERE usuario = ? AND password = ?';
+  // Buscamos en la tabla 'usuarios' que vimos en tu base de datos
+  const sql = 'SELECT * FROM usuarios WHERE usuario = ? AND password = ?';
 
-    connection.query(sql, [usuario, password], (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.send('<h1>Error en la base de datos</h1>');
-        }
+  connection.query(sql, [usuario, password], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.send('Error en la base de datos');
+    }
 
-        if (results.length > 0) {
-            // SI EL LOGIN ES EXITOSO: Redirige a /dashboard
-            res.redirect('/dashboard');
-        } else {
-            // SI FALLA: Muestra error
-            res.send('<h1>Usuario o contraseña incorrectos</h1>');
-        }
-    });
-});
-
-// Iniciar el servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    if (results.length > 0) {
+      res.send(`<h1>Bienvenido, ${usuario}!</h1>`);
+    } else {
+      res.send('<h1>Usuario o contraseña incorrectos</h1>');
+    }
+  });
 });
