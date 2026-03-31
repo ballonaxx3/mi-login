@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta 3 💌</title>
+
+<style>
+:root {
+  --bg: linear-gradient(135deg, #0f0a1f, #1c1235);
+  --card: rgba(28,18,53,0.9);
+  --primary: #a855f7;
+  --secondary: #c084fc;
+  --text: #f5f3ff;
+  --hover: #9333ea;
+}
+
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* CONFETI */
+.confeti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  top: -10px;
+  animation: caer linear infinite;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+@keyframes caer {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+.carta {
+  background: var(--card);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 700px;
+  box-shadow: 0 0 30px var(--primary);
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  color: var(--secondary);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.texto {
+  font-size: 18px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  min-height: 200px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background: var(--primary);
+  animation: parpadeo 0.8s infinite;
+  vertical-align: bottom;
+}
+
+@keyframes parpadeo {
+  50% { opacity: 0; }
+}
+
+a {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: var(--primary);
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+a:hover {
+  background: var(--hover);
+}
+</style>
+</head>
+<link rel="stylesheet" href="responsivo.css">
+<body>
+
+<div class="carta">
+  <h1>💌 Carta 3</h1>
+  <p class="texto" id="texto"></p>
+  <span class="cursor" id="cursor"></span>
+  <a href="cartas.html">← Volver</a>
+</div>
+
+<audio id="musica" src="romantica.mp3" autoplay loop></audio>
+
+<script>
+// TEXTO MULTILÍNEA
+const mensaje = `Mi vida 💜✨,
+
+No hay palabras suficientes para decir cuánto significas para mí. 
+Cada instante contigo es un recuerdo que guardo en el corazón.
+
+Eres mi amor, mi alegría y mi hogar en este mundo.
+
+Siempre juntos 💖`;
+
+const textoElem = document.getElementById("texto");
+const cursor = document.getElementById("cursor");
+let index = 0;
+
+function escribirLetra() {
+  if(index < mensaje.length) {
+    textoElem.textContent += mensaje.charAt(index);
+    index++;
+    setTimeout(escribirLetra, 60);
+  } else {
+    cursor.style.display = "none";
+  }
+}
+
+// GENERAR CONFETI
+function crearConfeti() {
+  const confeti = document.createElement('div');
+  confeti.classList.add('confeti');
+  confeti.style.left = Math.random() * window.innerWidth + 'px';
+  confeti.style.animationDuration = 3 + Math.random() * 3 + 's';
+  confeti.style.width = 5 + Math.random()*10 + 'px';
+  confeti.style.height = confeti.style.width;
+  confeti.style.background = ['#a855f7','#c084fc','#9333ea','#f5f3ff'][Math.floor(Math.random()*4)];
+  document.body.appendChild(confeti);
+  setTimeout(() => confeti.remove(), 6000);
+}
+
+// EMPEZAR
+window.onload = () => {
+  escribirLetra();
+  const audio = document.getElementById("musica");
+  audio.volume = 0.3;
+  setInterval(crearConfeti, 300); // confeti constante
+};
+</script>
+
+</body>
+</html>
