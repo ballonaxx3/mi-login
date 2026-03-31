@@ -1,650 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro Espacio 💜</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti 💜</title>
 
-        :root {
-            --color-primario: #C17BC1;
-            --color-secundario: #E4C5E4;
-            --color-acento: #9C3C9F;
-            --color-fondo: #121212;
-            --color-card: rgba(0, 0, 0, 0.45);
-            --color-texto: #ffffff;
-            --color-texto-suave: rgba(255,255,255,0.7);
-            --color-borde: rgba(255,255,255,0.15);
-        }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: var(--color-texto);
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+:root {
+  --bg: #0f0a1f;
+  --nav: rgba(28,18,53,0.85);
+  --primary: #a855f7;
+  --secondary: #c084fc;
+  --hover: #9333ea;
+  --text: #f5f3ff;
+  --text-soft: #ddd6fe;
+}
 
-        /* Fondo animado con partículas */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
+body {
+  background: radial-gradient(circle at top, #1c1235, #0f0a1f);
+  color: var(--text);
+  padding-top: 80px;
+  overflow-x: hidden;
+}
 
-        .heart {
-            position: absolute;
-            color: rgba(193, 123, 193, 0.3);
-            animation: float 6s ease-in infinite;
-            font-size: 20px;
-        }
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--nav);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  z-index: 1000;
+}
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  background: var(--primary);
+  border-radius: 10px;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(168,85,247,0.6);
+}
 
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeInDown 1s ease;
-        }
+nav a:hover {
+  background: var(--hover);
+  transform: scale(1.05);
+}
 
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(193, 123, 193, 0.5);
-        }
+/* CONTENIDO */
+.contenido {
+  max-width: 700px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-        .subtitle {
-            color: var(--color-texto-suave);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
+/* NEON */
+.neon {
+  font-size: 42px;
+  color: var(--secondary);
+  text-shadow:
+    0 0 5px #c084fc,
+    0 0 10px #c084fc,
+    0 0 20px #a855f7,
+    0 0 40px #9333ea;
+}
 
-        /* Grid de tarjetas */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+/* TEXTO */
+p {
+  font-size: 18px;
+  margin: 15px 0;
+  color: var(--text-soft);
+}
 
-        /* Tarjeta base */
-        .card {
-            background: var(--color-card);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid var(--color-borde);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
+/* MEJOR FADE */
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn 1.5s forwards;
+}
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
+.delay {
+  animation-delay: 1s;
+}
 
-        .card:hover::before {
-            left: 100%;
-        }
+/* BOTON */
+.boton {
+  margin-top: 25px;
+  padding: 12px 20px;
+  background: var(--primary);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(193, 123, 193, 0.3);
-            border-color: var(--color-primario);
-        }
+.boton:hover {
+  background: var(--hover);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--primary);
+}
 
-        /* Iconos */
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-            animation: pulse 2s infinite;
-        }
+/* MENSAJE OCULTO */
+.oculto {
+  opacity: 0;
+  margin-top: 20px;
+  transition: 0.5s;
+}
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
+.mostrar {
+  opacity: 1;
+}
 
-        .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--color-secundario);
-        }
+/* LATIDO */
+.heartbeat {
+  margin-top: 20px;
+  color: var(--primary);
+  animation: latido 1.5s infinite;
+}
 
-        .card p {
-            color: var(--color-texto-suave);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
+/* PARTICULAS */
+.particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
 
-        /* Contadores especiales */
-        .counter-box {
-            background: linear-gradient(135deg, rgba(193, 123, 193, 0.2), rgba(228, 197, 228, 0.1));
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 15px;
-            text-align: center;
-            border: 1px solid rgba(193, 123, 193, 0.3);
-        }
+.particles::before,
+.particles::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(#c084fc 1px, transparent 1px),
+    radial-gradient(#a855f7 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveParticles 20s linear infinite;
+  opacity: 0.2;
+}
 
-        .counter-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--color-primario);
-            display: block;
-            text-shadow: 0 0 20px rgba(193, 123, 193, 0.5);
-        }
+/* ANIMACIONES */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-        .counter-label {
-            font-size: 0.9rem;
-            color: var(--color-texto-suave);
-            margin-top: 5px;
-        }
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
 
-        /* Botones de acción */
-        .btn {
-            background: linear-gradient(135deg, var(--color-primario), var(--color-acento));
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(156, 60, 159, 0.4);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(156, 60, 159, 0.6);
-        }
-
-        /* Modal para cartas */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #2d1b69, #1a1a2e);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            border: 2px solid var(--color-primario);
-            position: relative;
-            animation: modalPop 0.3s ease;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--color-texto-suave);
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--color-primario);
-        }
-
-        .letter-content {
-            font-family: 'Georgia', serif;
-            line-height: 1.8;
-            color: var(--color-texto);
-            font-size: 1.1rem;
-            white-space: pre-wrap;
-        }
-
-        .letter-date {
-            color: var(--color-primario);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        /* Galería de fotos */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .photo-placeholder {
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, rgba(193, 123, 193, 0.2), rgba(228, 197, 228, 0.1));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border: 2px dashed var(--color-primario);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .photo-placeholder:hover {
-            background: rgba(193, 123, 193, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* Lista de deseos */
-        .wish-list {
-            list-style: none;
-            margin-top: 15px;
-        }
-
-        .wish-item {
-            background: rgba(255,255,255,0.05);
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .wish-item:hover {
-            background: rgba(193, 123, 193, 0.2);
-            transform: translateX(5px);
-        }
-
-        .wish-item.completed {
-            opacity: 0.6;
-            text-decoration: line-through;
-        }
-
-        .checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--color-primario);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .checkbox.checked {
-            background: var(--color-primario);
-        }
-
-        /* Input para agregar */
-        .add-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--color-borde);
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            color: white;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        .add-input:focus {
-            border-color: var(--color-primario);
-        }
-
-        /* Animaciones de entrada */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card:nth-child(1) { animation: fadeInDown 0.5s ease 0.1s both; }
-        .card:nth-child(2) { animation: fadeInDown 0.5s ease 0.2s both; }
-        .card:nth-child(3) { animation: fadeInDown 0.5s ease 0.3s both; }
-        .card:nth-child(4) { animation: fadeInDown 0.5s ease 0.4s both; }
-        .card:nth-child(5) { animation: fadeInDown 0.5s ease 0.5s both; }
-        .card:nth-child(6) { animation: fadeInDown 0.5s ease 0.6s both; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .card { padding: 20px; }
-        }
-
-        /* Efecto de brillo */
-        .glow {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(193, 123, 193, 0.4), transparent);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .card:hover .glow {
-            opacity: 1;
-        }
-    </style>
+@keyframes moveParticles {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100px); }
+}
+</style>
 </head>
+<link rel="stylesheet" href="responsivo.css">
 <body>
 
-    <!-- Fondo animado -->
-    <div class="bg-animation" id="bgAnimation"></div>
+<nav>
+  <a href="dasboard.html">Inicio 🏠</a>
+  <a href="fotos.html">Fotos 🌸</a>
+  <a href="cartas.html">Carta 💌</a>
+</nav>
 
-    <header>
-        <h1>💜 Nuestro Espacio Especial 💜</h1>
-        <p class="subtitle">Un lugar mágico para nuestras memorias</p>
-    </header>
+<div class="particles"></div>
 
-    <div class="dashboard-grid">
-        
-        <!-- Contador de tiempo juntos -->
-        <div class="card" onclick="updateCounter()">
-            <span class="card-icon">⏰</span>
-            <h3>Tiempo Juntos</h3>
-            <p>Cada segundo a tu lado es un tesoro</p>
-            <div class="counter-box">
-                <span class="counter-number" id="daysCounter">0</span>
-                <div class="counter-label">días de amor</div>
-            </div>
-        </div>
+<section class="contenido">
+    <h1 class="neon">Bienvenida mi amor 💜</h1>
 
-        <!-- Cartas de amor -->
-        <div class="card" onclick="openLetterModal()">
-            <span class="card-icon">💌</span>
-            <h3>Cartas de Amor</h3>
-            <p>Palabras escritas con el corazón</p>
-            <button class="btn">Leer Cartas</button>
-        </div>
+    <p class="fade">
+        Te hice esto pensando en ti, en cada momento,
+        en cada recuerdo que tengo contigo.
+    </p>
 
-        <!-- Galería de fotos -->
-        <div class="card">
-            <span class="card-icon">📸</span>
-            <h3>Nuestros Momentos</h3>
-            <p>Recuerdos capturados en el tiempo</p>
-            <div class="photo-grid">
-                <div class="photo-placeholder" onclick="addPhoto(1)">📷</div>
-                <div class="photo-placeholder" onclick="addPhoto(2)">📷</div>
-                <div class="photo-placeholder" onclick="addPhoto(3)">📷</div>
-                <div class="photo-placeholder" onclick="addPhoto(4)">📷</div>
-            </div>
-        </div>
+    <p class="fade delay">
+        En lo bonito, en lo difícil,
+        y en todo lo que vamos a vivir juntos 💖
+    </p>
 
-        <!-- Lista de deseos/por hacer -->
-        <div class="card">
-            <span class="card-icon">✨</span>
-            <h3>Cosas por Hacer Juntos</h3>
-            <p>Aventuras que nos esperan</p>
-            <ul class="wish-list" id="wishList">
-                <li class="wish-item">
-                    <div class="checkbox" onclick="toggleWish(this)"></div>
-                    <span>Ver una puesta de sol juntos</span>
-                </li>
-                <li class="wish-item">
-                    <div class="checkbox" onclick="toggleWish(this)"></div>
-                    <span>Cocinar una cena especial</span>
-                </li>
-            </ul>
-            <input type="text" class="add-input" placeholder="Agregar nueva aventura..." 
-                   onkeypress="if(event.key==='Enter') addWish(this)">
-        </div>
+    <button class="boton" onclick="mostrarMensaje()">
+        Presiona aquí 💜
+    </button>
 
-        <!-- Frases especiales -->
-        <div class="card" onclick="newQuote()">
-            <span class="card-icon">💭</span>
-            <h3>Frase del Día</h3>
-            <p>Click para una nueva inspiración</p>
-            <div style="margin-top: 15px; font-style: italic; color: var(--color-secundario); padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px;" id="quoteBox">
-                "Eres mi persona favorita en todo el universo"
-            </div>
-        </div>
+    <p id="extra" class="oculto">
+        Eres lo mejor que me ha pasado, y no importa lo que venga,
+        siempre quiero estar contigo 💖
+    </p>
 
-        <!-- Música -->
-        <div class="card" onclick="toggleMusic()">
-            <span class="card-icon" id="musicIcon">🎵</span>
-            <h3>Nuestra Canción</h3>
-            <p>Música que nos une</p>
-            <div style="margin-top: 15px; font-size: 0.9rem; color: var(--color-texto-suave);" id="musicStatus">
-                Click para reproducir
-            </div>
-        </div>
+    <h2 class="heartbeat">Te amo demasiado 💜</h2>
+</section>
 
-    </div>
-
-    <!-- Modal para cartas -->
-    <div class="modal" id="letterModal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeLetterModal()">&times;</span>
-            <h2 style="color: var(--color-primario); margin-bottom: 20px;">💌 Cartas de Amor</h2>
-            
-            <div style="margin-bottom: 20px;">
-                <span class="letter-date">30 de Marzo, 2026</span>
-                <div class="letter-content" id="letterText">
-Mi amor,
-
-Cada día a tu lado es un regalo del universo. 
-Tu sonrisa ilumina mis mañanas y tu abrazo es mi lugar favorito en el mundo.
-
-Gracias por ser tú, por tu paciencia, tu amor incondicional y por hacer de mi vida una historia de cuento de hadas.
-
-Te amo más allá de las palabras.
-                </div>
-            </div>
-
-            <button class="btn" onclick="editLetter()" style="margin-right: 10px;">✏️ Editar</button>
-            <button class="btn" onclick="newLetter()">📝 Nueva Carta</button>
-        </div>
-    </div>
-
-    <script>
-        // Generar corazones flotantes
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '💜';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            document.getElementById('bgAnimation').appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 6000);
-        }
-
-        setInterval(createHeart, 1000);
-
-        // Contador de días (puedes cambiar la fecha)
-        function updateCounter() {
-            const startDate = new Date('2024-01-01'); // Cambia esta fecha
-            const now = new Date();
-            const diff = now - startDate;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('daysCounter').innerText = days;
-        }
-
-        updateCounter();
-
-        // Modal de cartas
-        function openLetterModal() {
-            document.getElementById('letterModal').style.display = 'flex';
-        }
-
-        function closeLetterModal() {
-            document.getElementById('letterModal').style.display = 'none';
-        }
-
-        function closeModal(e) {
-            if (e.target === document.getElementById('letterModal')) {
-                closeLetterModal();
-            }
-        }
-
-        // Editar carta
-        function editLetter() {
-            const letterDiv = document.getElementById('letterText');
-            if (letterDiv.contentEditable === 'true') {
-                letterDiv.contentEditable = 'false';
-                letterDiv.style.border = 'none';
-                letterDiv.style.padding = '0';
-            } else {
-                letterDiv.contentEditable = 'true';
-                letterDiv.style.border = '2px dashed var(--color-primario)';
-                letterDiv.style.padding = '10px';
-                letterDiv.style.borderRadius = '10px';
-                letterDiv.focus();
-            }
-        }
-
-        // Nueva carta (simulado)
-        const letters = [
-            `Mi amor,\n\nCada día a tu lado es un regalo del universo. \nTu sonrisa ilumina mis mañanas y tu abrazo es mi lugar favorito en el mundo.\n\nGracias por ser tú, por tu paciencia, tu amor incondicional y por hacer de mi vida una historia de cuento de hadas.\n\nTe amo más allá de las palabras.`,
-            
-            `Mi persona favorita,\n\nHoy solo quiero recordarte lo especial que eres para mí. \nTu risa es mi melodía favorita y tu mirada mi refugio seguro.\n\nNo hay día que no agradezca haberte encontrado.\n\nCon todo mi amor, siempre.`,
-            
-            `Amor mío,\n\nEn este momento estoy pensando en ti y en todas las razones por las que te amo.\nEres mi mejor amiga, mi confidente, mi todo.\n\nEl mundo es mejor contigo en él.\n\nInfinitamente tuyo.`
-        ];
-
-        let currentLetter = 0;
-        function newLetter() {
-            currentLetter = (currentLetter + 1) % letters.length;
-            document.getElementById('letterText').innerText = letters[currentLetter];
-        }
-
-        // Lista de deseos
-        function toggleWish(checkbox) {
-            checkbox.classList.toggle('checked');
-            checkbox.parentElement.classList.toggle('completed');
-        }
-
-        function addWish(input) {
-            if (input.value.trim() === '') return;
-            
-            const li = document.createElement('li');
-            li.className = 'wish-item';
-            li.innerHTML = `
-                <div class="checkbox" onclick="toggleWish(this)"></div>
-                <span>${input.value}</span>
-            `;
-            document.getElementById('wishList').appendChild(li);
-            input.value = '';
-        }
-
-        // Frases aleatorias
-        const quotes = [
-            "Eres mi persona favorita en todo el universo",
-            "Contigo cada momento es mágico",
-            "Mi corazón es tuyo, hoy y siempre",
-            "Eres el sueño del que nunca quiero despertar",
-            "Amarte es lo más fácil y hermoso que hago",
-            "Eres mi hogar, sin importar dónde estemos"
-        ];
-
-        function newQuote() {
-            const quoteBox = document.getElementById('quoteBox');
-            quoteBox.style.opacity = '0';
-            setTimeout(() => {
-                quoteBox.innerText = '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
-                quoteBox.style.opacity = '1';
-            }, 300);
-        }
-
-        // Música (simulado)
-        let isPlaying = false;
-        function toggleMusic() {
-            isPlaying = !isPlaying;
-            const icon = document.getElementById('musicIcon');
-            const status = document.getElementById('musicStatus');
-            
-            if (isPlaying) {
-                icon.innerHTML = '🎶';
-                status.innerHTML = '▶️ Reproduciendo...<br><small>Nuestra canción especial</small>';
-                status.style.color = 'var(--color-primario)';
-            } else {
-                icon.innerHTML = '🎵';
-                status.innerHTML = 'Click para reproducir';
-                status.style.color = 'var(--color-texto-suave)';
-            }
-        }
-
-        // Agregar fotos (simulado)
-        function addPhoto(num) {
-            const placeholders = document.querySelectorAll('.photo-placeholder');
-            const emojis = ['❤️', '💕', '💜', '💖', '🌹', '✨'];
-            placeholders[num-1].innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-            placeholders[num-1].style.background = 'linear-gradient(135deg, rgba(193, 123, 193, 0.4), rgba(228, 197, 228, 0.2))';
-            placeholders[num-1].style.border = '2px solid var(--color-secundario)';
-        }
-
-        // Efecto de brillo en tarjetas
-        document.querySelectorAll('.card').forEach(card => {
-            const glow = document.createElement('div');
-            glow.className = 'glow';
-            card.appendChild(glow);
-            
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left - 50;
-                const y = e.clientY - rect.top - 50;
-                glow.style.left = x + 'px';
-                glow.style.top = y + 'px';
-            });
-        });
-    </script>
+<script>
+function mostrarMensaje() {
+  document.getElementById("extra").classList.add("mostrar");
+}
+</script>
 
 </body>
 </html>
